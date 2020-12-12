@@ -1,5 +1,6 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import FormData from 'form-data';
 
 export default function Home() {
   return (
@@ -61,5 +62,22 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
+}
+
+export async function getServerSideProps() {
+  const body = new FormData();
+  body.append('email', 'dante.e.cortes@gmail.com');
+  body.append('password', 'secret');
+
+  const response = await fetch(`https://chaski-delivery.com/api/auth/login`, {
+    method: 'POST',
+    body,
+  });
+
+  console.log('response', response);
+
+  return {
+    props: {},
+  };
 }
